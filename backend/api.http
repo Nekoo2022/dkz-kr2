@@ -1,0 +1,67 @@
+### Регистрация обычного пользователя
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "ivan@mail.ru",
+  "first_name": "Иван",
+  "last_name": "Иванов",
+  "password": "qwerty123",
+  "role": "user"
+}
+
+### Регистрация сотрудника
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "staff@mail.ru",
+  "first_name": "Мария",
+  "last_name": "Петрова",
+  "password": "qwerty123",
+  "role": "employee"
+}
+
+### Вход (получить JWT)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "employee@mail.ru",
+  "password": "employee12345"
+}
+
+### Текущий пользователь
+GET http://localhost:3000/api/auth/me
+Authorization: Bearer {{token}}
+
+### Список товаров (нужен токен любой роли)
+GET http://localhost:3000/api/products
+Authorization: Bearer {{token}}
+
+### Создать товар (только сотрудник, обычный пользователь получит 403)
+POST http://localhost:3000/api/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Новый товар",
+  "category": "Категория",
+  "description": "Описание",
+  "price": 100,
+  "stock": 5
+}
+
+### Изменить товар
+PUT http://localhost:3000/api/products/p1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Печенье",
+  "price": 89
+}
+
+### Удалить товар
+DELETE http://localhost:3000/api/products/p1
+Authorization: Bearer {{token}}
